@@ -3,9 +3,15 @@ const restify = require('restify')
 const {getUser, createUser, updateUser} = require('./storage')
 
 const apiKey = process.env.JSONBOX_APIKEY
+const port = process.env.PORT
 
 if (!apiKey) {
     console.error("JSONBOX_APIKEY not found");
+    return
+}
+
+if (!port) {
+    console.error("PORT not found");
     return
 }
 
@@ -84,6 +90,6 @@ server.post('/pacotes/:email', async function(req, res, next) {
     return next()
 })
 
-server.listen(8080, function() {
+server.listen(port, function() {
     console.log('%s listening at %s', server.name, server.url)
 })
